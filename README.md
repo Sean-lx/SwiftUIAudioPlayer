@@ -1,3 +1,3 @@
 # SwiftUIAudioPlayer
 
-A description of this package.
+A SwiftUI audio player view.
