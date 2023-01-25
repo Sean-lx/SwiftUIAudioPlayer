@@ -47,7 +47,7 @@ public class SwiftUIAudioPlayer: NSObject, ObservableObject, AVAudioPlayerDelega
     self.volume = volume
     self.repeatSound = repeatSound
     self.audioFileUrl = url
-    self.audioFileName = url.deletingLastPathComponent().lastPathComponent
+    self.audioFileName = (url.lastPathComponent as NSString).deletingPathExtension
     
     super.init()
     
