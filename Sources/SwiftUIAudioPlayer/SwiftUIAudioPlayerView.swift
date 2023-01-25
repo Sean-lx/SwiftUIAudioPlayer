@@ -8,6 +8,10 @@ public struct SwiftUIAudioPlayerView: View {
   @EnvironmentObject
   var audioPlayer: SwiftUIAudioPlayer
   
+  public init() {
+    
+  }
+  
   public var body: some View {
     VStack {
       Text(audioPlayer.audioFileName ?? "")
