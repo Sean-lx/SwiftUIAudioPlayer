@@ -4,11 +4,11 @@
 
 import SwiftUI
 
-struct SwiftUIAudioPlayerView: View {
+public struct SwiftUIAudioPlayerView: View {
   @EnvironmentObject
   var audioPlayer: SwiftUIAudioPlayer
   
-  var body: some View {
+  public var body: some View {
     VStack {
       Text(audioPlayer.audioFileName ?? "")
         .bold()
