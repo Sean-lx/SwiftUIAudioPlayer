@@ -10,6 +10,7 @@ public class SwiftUIAudioPlayer: NSObject, ObservableObject, AVAudioPlayerDelega
   @Published public var duration: Double = 0.0
   @Published public var formattedDuration: String = ""
   @Published public var formattedProgress: String = "00:00"
+  @Published public private(set) var error: Error?
   
   /// The internal audio player being managed by this object.
   private var audioPlayer: AVAudioPlayer?
@@ -30,14 +31,13 @@ public class SwiftUIAudioPlayer: NSObject, ObservableObject, AVAudioPlayerDelega
   
   /// Creates a new instance by looking for a particular sound filename in a bundle of your choosing.of `.reset`.
   /// - Parameters:
-  ///   - sound: The name of the sound file you want to load.
+  ///   - fileName: The name of the sound file you want to load.
   ///   - bundle: The bundle containing the sound file. Defaults to the main bundle.
   ///   - volume: How loud to play this sound relative to other sounds in your app,
   ///     specified in the range 0 (no volume) to 1 (maximum volume).
   ///   - repeatSound: if false  (the default) will play the sound only once.
-  public convenience init?(sound: String, bundle: Bundle = .main, volume: Double = 1.0, repeatSound: Bool = false) {
-    guard let url = bundle.url(forResource: sound, withExtension: nil) else {
-      print("Failed to find \(sound) in bundle.")
+  public convenience init?(fileName: String, bundle: Bundle = .main, volume: Double = 1.0, repeatSound: Bool = false) {
+    guard let url = bundle.url(forResource: fileName, withExtension: nil) else {
       return nil
     }
     self.init(url: url, volume: volume, repeatSound: repeatSound)
@@ -52,7 +52,7 @@ public class SwiftUIAudioPlayer: NSObject, ObservableObject, AVAudioPlayerDelega
     super.init()
     
     guard let player = try? AVAudioPlayer(contentsOf: url) else {
-      print("Failed to load audio from \(url).")
+      self.error = "Failed to load audio from \(url)."
       return
     }
     self.audioPlayer = player
