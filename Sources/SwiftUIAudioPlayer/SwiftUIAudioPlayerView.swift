@@ -8,8 +8,12 @@ public struct SwiftUIAudioPlayerView: View {
   @EnvironmentObject
   var audioPlayer: SwiftUIAudioPlayer
   
-  public init() {
-    
+  let barColor: Color
+  let progressColor: Color
+  
+  public init(barColor: Color = .accentColor, progressColor: Color = .accentColor) {
+    self.barColor = barColor
+    self.progressColor = progressColor
   }
   
   public var body: some View {
@@ -28,10 +32,10 @@ public struct SwiftUIAudioPlayerView: View {
         /// this is a dynamic length progress bar
         GeometryReader { gr in
           Capsule()
-            .stroke(Color.blue, lineWidth: 2)
+            .stroke(barColor, lineWidth: 2)
             .background(
               Capsule()
-                .foregroundColor(Color.blue)
+                .foregroundColor(progressColor)
                 .frame(width: gr.size.width * audioPlayer.progress, height: 8), alignment: .leading)
         }
         .frame( height: 8)
