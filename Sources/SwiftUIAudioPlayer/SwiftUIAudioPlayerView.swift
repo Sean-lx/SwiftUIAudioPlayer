@@ -83,9 +83,7 @@ public struct SwiftUIAudioPlayerView: View {
         Spacer()
       }
     }
-    .foregroundColor(.blue)
   }
-
 }
 
 struct SwiftUIAudioPlayerView_Previews: PreviewProvider {
