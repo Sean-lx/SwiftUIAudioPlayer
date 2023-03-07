@@ -10,20 +10,27 @@ public struct SwiftUIAudioPlayerView: View {
   
   let barColor: Color
   let progressColor: Color
+  let showFileName: Bool
   
-  public init(barColor: Color = .accentColor, progressColor: Color = .accentColor) {
+  public init(barColor: Color = .accentColor,
+              progressColor: Color = .accentColor,
+              showFileName: Bool = false)
+  {
     self.barColor = barColor
     self.progressColor = progressColor
+    self.showFileName = showFileName
   }
   
   public var body: some View {
     VStack {
-      Text(audioPlayer.audioFileName ?? "")
-        .bold()
-        .multilineTextAlignment(.center)
-        .font(.title)
-        .minimumScaleFactor(0.75)
-        .padding()
+      if showFileName {
+        Text(audioPlayer.audioFileName ?? "")
+          .bold()
+          .multilineTextAlignment(.center)
+          .font(.title)
+          .minimumScaleFactor(0.75)
+          .padding()
+      }
       
       HStack {
         Text(audioPlayer.formattedProgress)
@@ -36,7 +43,8 @@ public struct SwiftUIAudioPlayerView: View {
             .background(
               Capsule()
                 .foregroundColor(progressColor)
-                .frame(width: gr.size.width * audioPlayer.progress, height: 8), alignment: .leading)
+                .frame(width: gr.size.width * audioPlayer.progress, height: 8),
+              alignment: .leading)
         }
         .frame( height: 8)
         
